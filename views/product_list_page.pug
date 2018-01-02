@@ -1,0 +1,40 @@
+doctype html
+html(lang="en")
+    head
+        meta(charset="utf-8")
+        meta(name="description",content="NodeJs Assignment")
+        title="NodeJs Assignment"
+        link(rel="stylesheet", type="text/css", href="assets/css/reset.css")
+        link(rel="stylesheet", type="text/css", href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css")
+        link(rel="stylesheet", type="text/css", href="assets/css/main.css")
+        script(type="text/javascript", src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js")
+        script(type="text/javascript", src="/assets/js/app.js")
+    body
+        div.container(ng-app="App",ng-controller="productListingController as vm")
+            div.row(ng-show="vm.selectedProduct")
+                div.col-lg-12
+                    div.col-lg-12.grey.lighten-1.border-dark-gray.p-2
+                        div.col-md-6.col-lg-3.text-center
+                            img.img-thumbnail(ng-src="{{vm.selectedProduct.imageUrls.lg}}")
+                        div.col-md-6.col-lg-6
+                            ="{{vm.selectedProduct.brand +' '+ vm.selectedProduct.description}}"    
+                            ul.hero-features-list
+                                li(ng-repeat="marketingBullet in vm.selectedProduct.marketingBullets", ng-bind-html="vm.renderHTML(marketingBullet)")
+                                    
+                        div.col-lg-3.text-center
+                             button.btn.btn-gray(ng-click="vm.addToCart(vm.selectedProduct)")="Add To Cart"
+                             div.clearfix
+                             h2='{{"$"+vm.selectedProduct.networkPrice}}'
+                        div.clearfix                            
+            div.row
+                div.col-xs-12.col-md-6.col-lg-4.pt-4(ng-repeat="product in vm.products")
+                    div.text-center.p-5.grey.lighten-1.border-dark-gray.listing-item.p-2(ng-mouseover='vm.showCurrentProduct(product)')
+                        img.img-thumbnail(ng-src="{{product.imageUrls.sm}}")
+                        div.clearfix    
+                        div.item-description='{{product.brand +" " +product.description}}'
+                        h2='{{"$"+product.networkPrice}}'
+                        button.btn.btn-gray(ng-click='vm.showCurrentProduct(product)')="View More"
+                    
+                
+                
+        
